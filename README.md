@@ -8,7 +8,9 @@ ex : http://5.135.182.69
 
 bower
 -----
+```
 bower install
+```
 
 
 cron
