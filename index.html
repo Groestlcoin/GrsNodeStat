@@ -63,11 +63,10 @@
 
 
 	  		<div class="row">
-	  			<div class="col-xs-12 col-sm-6">
-	  				<dl id="info" class="dl-horizontal"></dl>
-	  			</div>
-	  			<div class="col-xs-12 col-sm-6">
-	  			<dl id="nettotals" class="dl-horizontal"></dl>
+	  			<div class="col-xs-12">
+	  				<dl id="blockchaininfo" class="dl-horizontal"></dl>
+	  				<dl id="networkinfo" class="dl-horizontal"></dl>
+	  				<dl id="nettotals" class="dl-horizontal"></dl>
 	  			</div>
 	  		</div>
 
@@ -119,9 +118,20 @@
 
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$.getJSON("getinfo.json", function(data) {
+				$.getJSON("getblockchaininfo.json", function(data) {
 					$.each(data, function(k, v) {
-						$("#info").append('<dt>' + k + '</dt><dd>' + v + '</dd>');
+						if ($.inArray(k, ["chain", "blocks", "headers", "difficulty", "mediantime", "verificationprogress", "chainwork", "pruned"]) > -1) {
+							console.log(k);
+							$("#blockchaininfo").append('<dt>' + k + '</dt><dd>' + v + '</dd>');
+						}
+					});
+				});
+
+				$.getJSON("getnetworkinfo.json", function(data) {
+					$.each(data, function(k, v) {
+						if ($.inArray(k, ["version", "subversion", "protocolversion"]) > -1) {
+							$("#networkinfo").append('<dt>' + k + '</dt><dd>' + v + '</dd>');
+						}
 					});
 				});
 
@@ -131,7 +141,9 @@
 					data['timemillis'] = tsToDate(data['timemillis'] / 1000);
 
 					$.each(data, function(k, v) {
-						$("#nettotals").append('<dt>' + k + '</dt><dd>' + v + '</dd>');
+						if ($.inArray(k, ["totalbytesrecv", "totalbytessent", "timemillis"]) > -1) {
+							$("#nettotals").append('<dt>' + k + '</dt><dd>' + v + '</dd>');
+						}
 					});
 				});
 
@@ -161,7 +173,6 @@
    					var i = Math.floor(Math.log(bytes) / Math.log(k));
    					return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
 				}
-				
 			});
 		</script>
   	</body>

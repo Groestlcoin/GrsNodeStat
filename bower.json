@@ -2,7 +2,7 @@
     "name": "btcnode",
     "dependencies": {
         "jquery": "latest",
-        "bootstrap": "latest",
+        "bootstrap": "3.*",
         "mustache": "latest"
     }
 }
