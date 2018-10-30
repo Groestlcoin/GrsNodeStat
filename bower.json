@@ -1,9 +1,8 @@
 {
-    "name": "btcnode",
+    "name": "grsnode",
     "dependencies": {
         "jquery": "latest",
         "bootstrap": "3.*",
         "mustache": "latest"
     }
 }
-
